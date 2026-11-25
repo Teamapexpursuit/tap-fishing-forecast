@@ -1,12 +1,12 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Team Apex Pursuit | Gulf Coast 3-Day Forecast</title><style>
 :root{color-scheme:dark;--bg:#0c1119;--panel:#172230;--line:#344254;--ink:#f2f5f8;--muted:#b1c0cf;--orange:#ff8b25;--green:#8edbb0}*{box-sizing:border-box}body{margin:0;background:linear-gradient(150deg,#101c29,#0b1017 70%);font:16px system-ui,Arial,sans-serif;color:var(--ink)}header,main,footer{max-width:1100px;margin:auto;padding:22px}header{border-bottom:1px solid var(--line)}.brand{color:var(--orange);font-size:.83rem;font-weight:900;letter-spacing:.18em}.hero{font-size:clamp(1.7rem,4vw,3rem);line-height:1.13;margin:12px 0}.sub,.small{color:var(--muted)}.small{font-size:.83rem}.controls{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}.control{flex:1;min-width:220px}label{display:block;font-size:.82rem;margin-bottom:6px;color:var(--muted)}select,button{width:100%;background:#1e2d3d;color:var(--ink);border:1px solid #4b5b6d;border-radius:9px;padding:12px;font:inherit}button{cursor:pointer;background:var(--orange);color:#10151b;font-weight:800;border:0}.status{padding:12px 0;color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card,.detail{background:var(--panel);border:1px solid var(--line);border-radius:15px;padding:19px}.card h2{margin:0 0 12px;font-size:1.12rem}.score{font-size:3.1rem;font-weight:900;color:var(--orange);line-height:1.1}.score small{font-size:1rem;color:var(--muted)}.metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.metric b{display:block;font-size:1.03rem}.metric span{color:var(--muted);font-size:.8rem}.pill{display:inline-block;background:#304055;border-radius:100px;padding:5px 9px;font-size:.78rem;margin-top:9px}.detail{margin-top:18px}.detail h3{margin-top:0}.windows{display:flex;flex-wrap:wrap;gap:9px}.window{background:#26394c;border:1px solid #42566a;padding:10px 12px;border-radius:9px}.notice{border-left:3px solid var(--orange);padding:10px 14px;background:#30281f;margin-top:18px}.ok{color:var(--green)}footer{font-size:.8rem;color:var(--muted)}a{color:#ffae69}@media(max-width:740px){.cards{grid-template-columns:1fr}header,main,footer{padding:16px}.metrics{grid-template-columns:repeat(2,1fr)}}
-</style></head><body><header><div class="brand">TEAM APEX PURSUIT · SCREAMING DRAG</div><h1 class="hero">Texas Gulf Coast<br>3-Day Fishing Forecast</h1><div class="sub">Sharks · Bull reds · Black drum · Tide, surf, wind, moon and bite windows</div></header><main><div class="controls"><div class="control"><label for="place">Fishing location</label><select id="place"></select></div><div class="control"><label for="target">Target species</label><select id="target"><option value="shark">Sharks</option><option value="redfish">Bull redfish</option><option value="drum">Black drum</option></select></div><div class="control" style="flex:0 1 150px;align-self:end"><button id="refresh">Refresh</button></div></div><div class="status" id="status" aria-live="polite">Preparing forecast…</div><section class="cards" id="cards"></section><section class="detail"><h3>Best estimated bite windows</h3><div class="windows" id="windows"></div><p class="small">Bite scores and windows are experimental fishing heuristics, not NOAA predictions. NOAA station selection is location-specific but remains a regional proxy; prediction availability and local timing must be verified, especially along open beaches and passes. Always assess conditions on site.</p></section><div class="notice" id="warnings">Loading marine conditions…</div><section class="detail"><h3>How this forecast works</h3><p>Weather forecasts: Open-Meteo. Wave forecasts: Open-Meteo Marine. Tide predictions: NOAA CO-OPS where a mapped station is available. All displayed times are America/Chicago. Species-specific experimental scores combine wind, gusts, rain, pressure trend, wave height, and hourly predicted tide movement; moon phase and illumination are approximated astronomically and are not scored until validated. Pressure trend is an approximate change across the available forecast hours, not a measured barometer reading.</p><p class="small">Data refreshes automatically every six hours while the page is open, and when returning to a stale page. The manual Refresh button remains available. This is a read-only prototype. No registration, tracking, or connection to Shark Watch, Catch Watch, Sharkotic, or your live website.</p></section></main><footer>Team Apex Pursuit · Forecast v0.5 · Data sources: <a href="https://open-meteo.com/en/docs">Open-Meteo</a>, <a href="https://open-meteo.com/en/docs/marine-weather-api">Marine API</a>, <a href="https://api.tidesandcurrents.noaa.gov/api/prod/">NOAA CO-OPS</a>. Verify all forecasts before travel.</footer><script>
+</style></head><body><header><div class="brand">TEAM APEX PURSUIT · SCREAMING DRAG</div><h1 class="hero">Texas Gulf Coast<br>3-Day Fishing Forecast</h1><div class="sub">Sharks · Bull reds · Black drum · Tide, surf, wind, moon and bite windows</div></header><main><div class="controls"><div class="control"><label for="place">Fishing location</label><select id="place"></select></div><div class="control"><label for="target">Target species</label><select id="target"><option value="shark">Sharks</option><option value="redfish">Bull redfish</option><option value="drum">Black drum</option></select></div><div class="control" style="flex:0 1 150px;align-self:end"><button id="refresh">Refresh</button></div></div><div class="status" id="status" aria-live="polite">Preparing forecast…</div><section class="cards" id="cards"></section><section class="detail"><h3>Best estimated 2-hour bite windows</h3><div class="windows" id="windows"></div><p class="small">The large score is the average across all scored hours, including overnight; today covers the remaining hours. Peak-hour and 2-hour window scores use the same 0–10 scale. For example, 8.0/10 equals 80/100; it is a conditions index, not an 80% chance of catching a fish. Scores and windows are experimental fishing estimates, not NOAA predictions. NOAA station selection is location-specific but remains a regional proxy; prediction availability and local timing must be verified, especially along open beaches and passes. Always assess conditions on site.</p></section><div class="notice" id="warnings">Loading marine conditions…</div><section class="detail"><h3>How this forecast works</h3><p>Weather forecasts: Open-Meteo. Wave forecasts: Open-Meteo Marine. Tide predictions: NOAA CO-OPS where a mapped station is available. All displayed times are America/Chicago. Wave heights are requested in feet. Species-specific experimental scores combine wind, gusts, rain, pressure trend, regional wave height, and hourly predicted tide movement; moon phase and illumination are approximated astronomically and are not scored until validated. Pressure trend is an approximate change across the available forecast hours, not a measured barometer reading.</p><p class="small">Data refreshes automatically every six hours while the page is open, and when returning to a stale page. The manual Refresh button remains available. Compare the daily average with the peak hour when planning your trip. The model has not been validated against catch records, and scores may differ from other forecasts. Missing hourly inputs leave the corresponding scores unavailable.</p></section></main><footer>Team Apex Pursuit · Forecast v0.6 · Data sources: <a href="https://open-meteo.com/en/docs">Open-Meteo</a>, <a href="https://open-meteo.com/en/docs/marine-weather-api">Marine API</a>, <a href="https://api.tidesandcurrents.noaa.gov/api/prod/">NOAA CO-OPS</a>. Verify all forecasts before travel.</footer><script>
 'use strict';
 // Approximate publicly known fishing-area coordinates, NOT navigational waypoints.
 const PLACES=[
 ['Texas City Dike · channel',29.37,-94.82,'8771450'],['Sea Wolf Park',29.34,-94.78,'8771450'],['Galveston jetties',29.34,-94.73,'8771341'],['Crystal Beach / Bolivar',29.46,-94.64,'8771341'],['Gilchrist',29.51,-94.48,'8770971'],['Rollover area',29.52,-94.51,'8770971'],['Surfside Beach',28.95,-95.29,'8772471'],['San Luis Pass',29.08,-95.12,'8771972'],['Sargent Beach',28.77,-95.61,'8772985'],['Matagorda Beach',28.60,-95.98,'8773146'],['Port Aransas',27.83,-97.06,'8775237'],['North Padre Island',27.57,-97.22,'8775792'],['Padre Island National Seashore',27.25,-97.34,'8775792'],['Bob Hall Pier area',27.58,-97.22,'8775792'],['Texas City Dike · beach',29.37,-94.82,'8771450']];
 const STATION_NAMES={'8771450':'Galveston Pier 21','8771341':'Galveston Bay Entrance, North Jetty','8770971':'Rollover Pass','8772471':'Freeport Harbor','8771972':'San Luis Pass','8772985':'Sargent','8773146':'Matagorda City','8775237':'Port Aransas','8775792':'Packery Channel'};
-const $=id=>document.getElementById(id);let snapshot=null;let cachedAt=0;let lastAttempt=0;let requestSequence=0;const REFRESH_MS=6*60*60*1000;const TZ='America/Chicago';
+const $=id=>document.getElementById(id);let snapshot=null;let cachedAt=0;let snapshotPlace=null;let refreshIncomplete=false;let lastAttempt=0;let requestSequence=0;const REFRESH_MS=6*60*60*1000;const TZ='America/Chicago';
 function dateKey(s){return new Intl.DateTimeFormat('en-CA',{timeZone:TZ,year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(s))}
 function hourLocal(s){return Number(new Intl.DateTimeFormat('en-US',{timeZone:TZ,hour:'numeric',hourCycle:'h23'}).format(new Date(s)))}
 function fmtTime(s){return new Intl.DateTimeFormat('en-US',{timeZone:TZ,hour:'numeric',minute:'2-digit'}).format(new Date(s))}
@@ -14,8 +14,11 @@ function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;',
 function clamp(n,a,b){return Math.max(a,Math.min(b,n))}
 function avg(a){return a.length?a.reduce((x,y)=>x+y,0)/a.length:null}
 async function getJson(url){const c=new AbortController();const timeout=setTimeout(()=>c.abort(),13000);try{const r=await fetch(url,{signal:c.signal});if(!r.ok)throw Error('HTTP '+r.status);return await r.json()}finally{clearTimeout(timeout)}}
-function apiUrls(p){const lat=p[1],lon=p[2];return {weather:`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation_probability,wind_speed_10m,wind_gusts_10m,pressure_msl&wind_speed_unit=mph&timezone=UTC&forecast_days=4`,marine:`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&hourly=wave_height,wave_period&timezone=UTC&forecast_days=4`,tide:`https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=${new Date().toISOString().slice(0,10).replaceAll('-','')}&range=96&station=${p[3]}&product=predictions&datum=MLLW&time_zone=gmt&units=english&interval=h&format=json`}}
-function indexRows(json,cols){if(!json?.hourly?.time) return [];return json.hourly.time.map((t,i)=>({time:t+'Z',...Object.fromEntries(cols.map(c=>[c,json.hourly[c]?.[i]??null]))}))}
+function apiUrls(p){const lat=p[1],lon=p[2];return {weather:`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,precipitation_probability,wind_speed_10m,wind_gusts_10m,pressure_msl&wind_speed_unit=mph&timezone=UTC&forecast_days=4`,marine:`https://marine-api.open-meteo.com/v1/marine?latitude=${lat}&longitude=${lon}&hourly=wave_height,wave_period&length_unit=imperial&timezone=UTC&forecast_days=4`,tide:`https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=${new Date().toISOString().slice(0,10).replaceAll('-','')}&range=96&station=${p[3]}&product=predictions&datum=MLLW&time_zone=gmt&units=english&interval=h&format=json`}}
+function indexRows(json,cols){
+ if(!Array.isArray(json?.hourly?.time))return [];
+ return json.hourly.time.map((t,i)=>({time:t+'Z',...Object.fromEntries(cols.map(c=>[c,Number.isFinite(json.hourly[c]?.[i])?json.hourly[c][i]:null]))})).filter(r=>Number.isFinite(Date.parse(r.time)));
+}
 function tideRows(json){return (json?.predictions||[]).map(x=>({time:x.t.replace(' ','T')+'Z',height:Number(x.v)})).filter(x=>Number.isFinite(x.height))}
 function nearest(rows,t){if(!rows.length)return null;const ms=Date.parse(t);let best=null,dist=Infinity;for(const r of rows){const d=Math.abs(Date.parse(r.time)-ms);if(d<dist){best=r;dist=d}}return dist<=5400000?best:null}
 // Species profiles are explicit, provisional heuristics; not empirically calibrated catch probabilities.
@@ -25,13 +28,19 @@ const PROFILES={
  drum:{label:'Black drum',windIdeal:10,windPenalty:1.25,gustPenalty:.8,waveIdeal:1.4,wavePenalty:5.2,tideWeight:19,light:{dawn:4,dusk:6,night:9,day:1},pressureFall:0,pressureRise:3}
 };
 function tideMotion(tides,time){
- const at=Date.parse(time),before=nearest(tides,new Date(at-3600000).toISOString()),after=nearest(tides,new Date(at+3600000).toISOString());
+ const at=Date.parse(time);
+ const before=nearest(tides,new Date(at-3600000).toISOString());
+ const after=nearest(tides,new Date(at+3600000).toISOString());
  if(!before||!after)return null;
- const movement=(after.height-before.height)/2; // feet per hour, over a two-hour interval
+ const elapsed=(Date.parse(after.time)-Date.parse(before.time))/3600000;
+ if(elapsed<=0)return null;
+ const movement=(after.height-before.height)/elapsed;
  return {rate:Math.abs(movement),direction:movement>0.025?'incoming':movement<-.025?'outgoing':'slack'};
 }
 function scoreHour(w,m,motion,prev,target){
  const p=PROFILES[target]||PROFILES.shark;
+ // A numeric score requires usable weather, wave and regional tide inputs for this hour.
+ if(![w.wind_speed_10m,w.wind_gusts_10m,w.precipitation_probability,w.pressure_msl,m?.wave_height].every(Number.isFinite)||!motion)return null;
  let score=65;
  const wind=w.wind_speed_10m, gust=w.wind_gusts_10m, rain=w.precipitation_probability, wave=m?.wave_height;
  if(Number.isFinite(wind)){score-=Math.max(0,wind-p.windIdeal)*p.windPenalty;score+=Math.max(0,Math.min(wind,12)-4)*.25}
@@ -47,36 +56,84 @@ function scoreHour(w,m,motion,prev,target){
  if(dp!==null){score-=Math.min(Math.abs(dp)*1.7,6);if(dp<-.2)score+=p.pressureFall;if(dp>.2)score+=p.pressureRise;}
  const hour=hourLocal(w.time),period=hour>=5&&hour<=8?'dawn':hour>=17&&hour<=20?'dusk':hour>=21||hour<=4?'night':'day';
  score+=p.light[period];
- // Preserve a visible distinction among profiles without asserting biological precision.
- if(target==='shark')score+=2;
- if(target==='drum')score-=3;
  return Math.round(clamp(score,10,95));
 }
 function buildDays(weather,marine,tides,target){
- const now=Date.now();const ws=weather.filter(x=>Date.parse(x.time)>=now-3600000);const keys=[...new Set(ws.map(x=>dateKey(x.time)))].slice(0,3);
+ const start=Math.floor(Date.now()/3600000)*3600000;
+ const ws=weather.filter(x=>Date.parse(x.time)>=start);
+ const keys=[...new Set(ws.map(x=>dateKey(x.time)))].slice(0,3);
  return keys.map(key=>{
- const hours=ws.filter(x=>dateKey(x.time)===key).map(w=>{
-   const m=nearest(marine,w.time),t=nearest(tides,w.time),prev=ws.find(x=>Date.parse(x.time)===Date.parse(w.time)-3600000),motion=tideMotion(tides,w.time);
+  const hours=ws.filter(x=>dateKey(x.time)===key).map(w=>{
+   const m=nearest(marine,w.time),t=nearest(tides,w.time);
+   const prev=weather.find(x=>Date.parse(x.time)===Date.parse(w.time)-3600000);
+   const motion=tideMotion(tides,w.time);
    return {...w,wave:m?.wave_height??null,period:m?.wave_period??null,tideHeight:t?.height??null,tideDirection:motion?.direction??null,score:scoreHour(w,m,motion,prev,target)};
- });
- const active=hours.filter(h=>{const x=hourLocal(h.time);return x>=5&&x<=23});
- const ranked=[...active].sort((a,b)=>b.score-a.score);const best=[];
- for(const h of ranked){if(best.every(x=>Math.abs(Date.parse(x.time)-Date.parse(h.time))>=7200000))best.push(h);if(best.length===3)break;}
- best.sort((a,b)=>Date.parse(a.time)-Date.parse(b.time));
- const valid=hours.filter(h=>h.tideHeight!=null).map(h=>h.tideHeight);
- return {key,hours,score:Math.round(avg(active.map(h=>h.score))??0),best,wind:avg(hours.map(h=>h.wind_speed_10m).filter(Number.isFinite)),rain:Math.max(0,...hours.map(h=>h.precipitation_probability??0)),wave:avg(hours.map(h=>h.wave).filter(Number.isFinite)),pressure:avg(hours.map(h=>h.pressure_msl).filter(Number.isFinite)),tideRange:valid,pressureTrend:hours.length>1&&hours[0].pressure_msl!=null&&hours[hours.length-1].pressure_msl!=null?hours[hours.length-1].pressure_msl-hours[0].pressure_msl:null};
+  });
+  // Include every available hour, including overnight shark and drum sessions.
+  const scored=hours.filter(h=>Number.isFinite(h.score));
+  const candidates=hours.slice(0,-1).flatMap((h,i)=>{
+   const next=hours[i+1];
+   if(!Number.isFinite(h.score)||!Number.isFinite(next.score)||Date.parse(next.time)-Date.parse(h.time)!==3600000)return [];
+   return [{...h,end:new Date(Date.parse(next.time)+3600000).toISOString(),score:avg([h.score,next.score])}];
+  }).sort((a,b)=>b.score-a.score||Date.parse(a.time)-Date.parse(b.time));
+  const best=[];
+  for(const h of candidates){
+   if(best.every(x=>Date.parse(h.end)<=Date.parse(x.time)||Date.parse(h.time)>=Date.parse(x.end)))best.push(h);
+   if(best.length===2)break;
+  }
+  const peak=[...scored].sort((a,b)=>b.score-a.score||Date.parse(a.time)-Date.parse(b.time))[0]??null;
+  const valid=hours.map(h=>h.tideHeight).filter(Number.isFinite);
+  const score=avg(scored.map(h=>h.score));
+  return {key,hours,score,scoredHours:scored.length,best,peak,
+   wind:avg(hours.map(h=>h.wind_speed_10m).filter(Number.isFinite)),
+   gust:hours.some(h=>Number.isFinite(h.wind_gusts_10m))?Math.max(...hours.map(h=>h.wind_gusts_10m).filter(Number.isFinite)):null,
+   rain:hours.some(h=>Number.isFinite(h.precipitation_probability))?Math.max(...hours.map(h=>h.precipitation_probability).filter(Number.isFinite)):null,
+   wave:avg(hours.map(h=>h.wave).filter(Number.isFinite)),
+   pressure:avg(hours.map(h=>h.pressure_msl).filter(Number.isFinite)),tideRange:valid,
+   pressureTrend:hours.length>1&&Number.isFinite(hours[0].pressure_msl)&&Number.isFinite(hours.at(-1).pressure_msl)?hours.at(-1).pressure_msl-hours[0].pressure_msl:null};
  });
 }
+function scoreText(value){return Number.isFinite(value)?(value/10).toFixed(1)+'/10':'Unavailable'}
 function moonAge(k){return ((Date.parse(k+"T12:00:00Z")-Date.UTC(2000,0,6,18,14))/86400000%29.530588853+29.530588853)%29.530588853}
 function moonIllumination(k){return Math.round(50*(1-Math.cos(2*Math.PI*moonAge(k)/29.530588853)))}
 function pressureInHg(hpa){return hpa/33.8638866667}
 function trendLabel(hpaDelta){if(hpaDelta==null)return '—';const delta=pressureInHg(hpaDelta);return (delta>0.015?'↑ Rising':delta<-.015?'↓ Falling':'→ Steady')+' ('+(delta>=0?'+':'')+delta.toFixed(2)+' inHg)'}
 function moonPhase(k){const age=moonAge(k);return age<1.85?"New moon":age<7.38?"Waxing crescent":age<9.23?"First quarter":age<14.77?"Waxing gibbous":age<16.61?"Full moon":age<22.15?"Waning gibbous":age<24?"Last quarter":"Waning crescent"}
 function labelDay(k){return new Date(k+'T12:00:00-06:00').toLocaleDateString('en-US',{weekday:'long',month:'short',day:'numeric',timeZone:TZ})}
-function render(){if(!snapshot)return;const days=buildDays(snapshot.weather,snapshot.marine,snapshot.tides,$('target').value);$('cards').innerHTML=days.map(d=>`<article class="card"><h2>${esc(labelDay(d.key))}</h2><div class="score">${d.score}<small>/100</small></div><span class="pill">Experimental bite score</span><div class="metrics"><div class="metric"><b>${d.wind==null?'—':Math.round(d.wind)+' mph'}</b><span>Mean wind</span></div><div class="metric"><b>${d.wave==null?'—':d.wave.toFixed(1)+' ft'}</b><span>Mean wave height</span></div><div class="metric"><b>${d.rain}%</b><span>Max rain chance</span></div><div class="metric"><b>${d.tideRange.length?(Math.max(...d.tideRange)-Math.min(...d.tideRange)).toFixed(1)+' ft':'—'}</b><span>Regional tide range</span></div><div class="metric"><b>${d.pressure==null?'—':pressureInHg(d.pressure).toFixed(2)+' inHg'}</b><span>Mean sea-level pressure</span></div><div class="metric"><b>${d.pressureTrend==null?'—':trendLabel(d.pressureTrend)}</b><span>Forecast pressure trend</span></div><div class="metric"><b>${moonPhase(d.key)} · ${moonIllumination(d.key)}%</b><span>Approx. phase · illumination</span></div><div class="metric"><b>${d.best[0]?fmtTime(d.best[0].time):'—'}</b><span>Highest-scored hour</span></div></div></article>`).join('');$('windows').innerHTML=days.flatMap(d=>d.best.slice(0,2).map(h=>`<div class="window"><strong>${esc(labelDay(d.key))}</strong><br>${fmtTime(h.time)} · score ${h.score}/100${h.tideDirection?' · '+h.tideDirection+' tide':''}</div>`)).join('')||'No hourly windows available';const missing=[];if(!snapshot.weather.length)missing.push('weather');if(!snapshot.marine.length)missing.push('marine waves');if(!snapshot.tides.length)missing.push('NOAA tides');$('status').textContent=`${esc(PLACES[$('place').value][0])} · NOAA tide proxy: ${STATION_NAMES[PLACES[$('place').value][3]]} (${PLACES[$('place').value][3]}) · Last successful fetch ${new Date(cachedAt).toLocaleString('en-US',{timeZone:TZ})} Central · ${missing.length?'Missing: '+missing.join(', '):'All three feeds returned data'}`;const waves=days.flatMap(d=>d.hours.map(h=>h.wave).filter(Number.isFinite));const wind=days.flatMap(d=>d.hours.map(h=>h.wind_speed_10m).filter(Number.isFinite));$('warnings').textContent=(Math.max(0,...waves)>=6||Math.max(0,...wind)>=25?'Elevated forecast surf or wind: assess access and safety before fishing. ':'')+'Forecast values are modeled and may not reflect ship-channel currents, local jetties, rip currents, lightning, beach driving conditions, or legal access. Never use this page for navigation.'}
+function render(){
+ if(!snapshot)return;
+ const days=buildDays(snapshot.weather,snapshot.marine,snapshot.tides,$('target').value);
+ $('cards').innerHTML=days.map(d=>`<article class="card"><h2>${esc(labelDay(d.key))}</h2>
+ <div class="score">${Number.isFinite(d.score)?(d.score/10).toFixed(1):'—'}<small>/10</small></div>
+ <span class="pill">${d.key===dateKey(Date.now())?'Remaining-day average':'Daily average'} · experimental</span>
+ <p class="small">Peak hour: <strong>${scoreText(d.peak?.score)}</strong>${d.peak?' at '+fmtTime(d.peak.time):''}<br>${d.scoredHours} of ${d.hours.length} available hours scored</p>
+ <div class="metrics">
+ <div class="metric"><b>${d.wind==null?'—':Math.round(d.wind)+' mph'}</b><span>Mean wind</span></div>
+ <div class="metric"><b>${d.gust==null?'—':Math.round(d.gust)+' mph'}</b><span>Max gust</span></div>
+ <div class="metric"><b>${d.wave==null?'—':d.wave.toFixed(1)+' ft'}</b><span>Mean regional wave height</span></div>
+ <div class="metric"><b>${d.rain==null?'—':d.rain+'%'}</b><span>Max rain chance</span></div>
+ <div class="metric"><b>${d.tideRange.length?(Math.max(...d.tideRange)-Math.min(...d.tideRange)).toFixed(1)+' ft':'—'}</b><span>Regional tide range</span></div>
+ <div class="metric"><b>${d.pressure==null?'—':pressureInHg(d.pressure).toFixed(2)+' inHg'}</b><span>Mean sea-level pressure</span></div>
+ <div class="metric"><b>${trendLabel(d.pressureTrend)}</b><span>Forecast pressure trend</span></div>
+ <div class="metric"><b>${moonPhase(d.key)} · ${moonIllumination(d.key)}%</b><span>Approx. phase · illumination</span></div>
+ </div></article>`).join('')||'<p>No upcoming weather hours are available.</p>';
+ $('windows').innerHTML=days.flatMap(d=>d.best.map(h=>`<div class="window"><strong>${esc(labelDay(d.key))}</strong><br>${fmtTime(h.time)}–${fmtTime(h.end)}${dateKey(h.end)!==d.key?' (next day)':''}<br>Window average ${scoreText(h.score)} · ${h.tideDirection} tide at start</div>`)).join('')||'Not enough complete hourly data to estimate bite windows.';
+ const missing=[];
+ if(!snapshot.weather.length)missing.push('weather');
+ if(!snapshot.marine.length)missing.push('marine waves');
+ if(!snapshot.tides.length)missing.push('NOAA tides');
+ const p=PLACES[snapshotPlace];
+ $('status').textContent=p[0]+' · NOAA tide proxy: '+STATION_NAMES[p[3]]+' ('+p[3]+') · Data fetched '+new Date(cachedAt).toLocaleString('en-US',{timeZone:TZ})+' Central · '+(missing.length?'Missing: '+missing.join(', '):'Provider responses received; hourly coverage shown on cards')+(refreshIncomplete?' · Latest refresh incomplete; retaining earlier data for this location':'');
+ const waves=days.flatMap(d=>d.hours.map(h=>h.wave).filter(Number.isFinite));
+ const wind=days.flatMap(d=>d.hours.map(h=>h.wind_speed_10m).filter(Number.isFinite));
+ $('warnings').textContent=(Math.max(0,...waves)>=6||Math.max(0,...wind)>=25?'Elevated forecast surf or wind: assess access and safety before fishing. ':'')+(days.some(d=>d.scoredHours<d.hours.length)?'Some hourly inputs are missing; averages use only the hours with complete scoring inputs. ':'')+'Regional waves and tide predictions may not reflect ship-channel currents, sheltered water, local jetties or beach breakers. Check local conditions and access before fishing.';
+}
 async function load(){
  const seq=++requestSequence;
- const p=PLACES[Number($('place').value)];
+ const placeIndex=Number($('place').value);
+ const p=PLACES[placeIndex];
+ refreshIncomplete=false;
+ if(snapshotPlace!==placeIndex){snapshot=null;cachedAt=0;$('cards').innerHTML='';$('windows').textContent='Loading bite windows…';$('warnings').textContent='Loading marine conditions…';}
  lastAttempt=Date.now();
  $('status').textContent='Fetching weather, marine waves and NOAA tide predictions…';
  const urls=apiUrls(p);
@@ -84,11 +141,12 @@ async function load(){
  if(seq!==requestSequence)return; // Ignore responses from a previously selected location.
  const [w,m,t]=results.map(x=>x.status==='fulfilled'?x.value:null);
  const fresh={weather:indexRows(w,['temperature_2m','precipitation_probability','wind_speed_10m','wind_gusts_10m','pressure_msl']),marine:indexRows(m,['wave_height','wave_period']),tides:tideRows(t)};
- const allGood=fresh.weather.length&&fresh.marine.length&&fresh.tides.length;
+ const allGood=fresh.weather.some(r=>[r.wind_speed_10m,r.wind_gusts_10m,r.precipitation_probability,r.pressure_msl].every(Number.isFinite))&&fresh.marine.some(r=>Number.isFinite(r.wave_height))&&fresh.tides.length;
+ snapshotPlace=placeIndex;
  if(allGood){snapshot=fresh;cachedAt=Date.now();render();return;}
  // Never replace a complete forecast with partial values without telling visitors.
- if(snapshot&&cachedAt){render();$('status').textContent+=' · WARNING: Latest refresh incomplete; showing previous data';}
- else {snapshot=fresh;cachedAt=Date.now();render();$('status').textContent+=' · WARNING: Incomplete data; scores may be unreliable';}
+ if(snapshot&&cachedAt){refreshIncomplete=true;render();}
+ else {snapshot=fresh;cachedAt=Date.now();render();$('status').textContent+=' · Incomplete data; scores require all three inputs for each hour';}
  $('warnings').textContent='One or more forecast providers did not return usable data. Check again later. '+$('warnings').textContent;
 }
 function refreshIfDue(){if(document.visibilityState==='hidden')return;if(!lastAttempt||Date.now()-lastAttempt>=REFRESH_MS){load().catch(e=>{$('status').textContent='Refresh failed: '+e.message+' · Previous forecast may be stale';});}}
